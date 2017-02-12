@@ -6,4 +6,6 @@ import hu.evave.eventfinder.web.model.user.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
+	public User findByEmail(String email);
+
 }

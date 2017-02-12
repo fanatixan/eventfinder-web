@@ -24,28 +24,28 @@ public class Event {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String name;
-	
+
 	@OneToMany(mappedBy = "event")
-	@Column(name = "type")
-	private List<EventTypeMapping> types;
-	
+	@Column(name = "typeMapping")
+	private List<EventTypeMapping> typeMappings;
+
 	@ManyToOne
 	private Location location;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "starts_at")
 	private Date startsAt;
-	
+
 	@Temporal(TemporalType.DATE)
 	@Column(name = "ends_at")
 	private Date endsAt;
-	
+
 	@OneToMany
 	@Column(name = "price")
 	private List<Price> prices;
-	
+
 	private String summary;
 	private String description;
 	private String webUrl;
@@ -57,7 +57,7 @@ public class Event {
 	public Event(String name, List<EventTypeMapping> types, Location location, Date startsAt, Date endsAt,
 			List<Price> prices, String summary, String description, String webUrl, String fbUrl) {
 		this.name = name;
-		this.types = types;
+		this.typeMappings = types;
 		this.location = location;
 		this.startsAt = startsAt;
 		this.endsAt = endsAt;
@@ -77,11 +77,11 @@ public class Event {
 	}
 
 	public List<EventTypeMapping> getTypes() {
-		return types;
+		return typeMappings;
 	}
 
 	public void setTypes(List<EventTypeMapping> types) {
-		this.types = types;
+		this.typeMappings = types;
 	}
 
 	public Location getLocation() {

@@ -1,9 +1,27 @@
 package hu.evave.eventfinder.web.repository;
 
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import hu.evave.eventfinder.web.model.Event;
+import hu.evave.eventfinder.web.model.type.EventType;
 
 public interface EventRepository extends JpaRepository<Event, Long> {
+
+	List<Event> findByTypeMappingsType(EventType type);
+
+	List<Event> findByStartsAtAfter(Date date);
+
+	List<Event> findByEndsAtBefore(Date date);
+
+	List<Event> findByStartsAtBetween(Date starts, Date ends);
+
+	List<Event> findByLocationCountry(String country);
+
+	List<Event> findByLocationCity(String city);
+
+	List<Event> findByNameContaining(String phrase);
 
 }
