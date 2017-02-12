@@ -2,15 +2,34 @@ package hu.evave.eventfinder.web.model;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "location")
 public class Location {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	private String name;
 	private String country;
 	private String city;
+
+	@Column(name = "zip_code")
 	private String zipCode;
+
 	private String address;
+
+	@Column(precision = 7, scale = 2)
 	private BigDecimal lat;
+
+	@Column(precision = 7, scale = 2)
 	private BigDecimal lon;
 
 	public Location() {

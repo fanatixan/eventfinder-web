@@ -2,11 +2,30 @@ package hu.evave.eventfinder.web.model.price;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "price")
 public class Price {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@Enumerated(EnumType.STRING)
 	private Currency currency;
+	
+	@Column(precision = 7, scale = 2)
 	private BigDecimal amount;
+	
+	@Enumerated
 	private PriceType type;
 
 	public Price() {

@@ -1,11 +1,28 @@
 package hu.evave.eventfinder.web.model.type;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import hu.evave.eventfinder.web.model.Event;
 
+@Entity
+@Table(name = "eventy_type_mapping")
 public class EventTypeMapping {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@ManyToOne
 	private Event event;
+	
+	@Enumerated(EnumType.STRING)
 	private EventType type;
 
 	public EventTypeMapping() {
