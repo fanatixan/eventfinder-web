@@ -28,7 +28,7 @@ public class Event {
 	private String name;
 
 	@OneToMany(mappedBy = "event")
-	@Column(name = "typeMapping")
+//	@Column(name = "typeMapping") --> kapcsolatoknál nincs @Column, csak @JoinColumn, de az is opcionális
 	private List<EventTypeMapping> typeMappings;
 
 	@ManyToOne
@@ -43,7 +43,7 @@ public class Event {
 	private Date endsAt;
 
 	@OneToMany
-	@Column(name = "price")
+//	@Column(name = "price")
 	private List<Price> prices;
 
 	private String summary;
