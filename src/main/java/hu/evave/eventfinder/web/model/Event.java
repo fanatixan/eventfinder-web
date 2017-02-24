@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,7 +29,6 @@ public class Event {
 	private String name;
 
 	@OneToMany(mappedBy = "event")
-//	@Column(name = "typeMapping") --> kapcsolatoknál nincs @Column, csak @JoinColumn, de az is opcionális
 	private List<EventTypeMapping> typeMappings;
 
 	@ManyToOne
@@ -43,7 +43,7 @@ public class Event {
 	private Date endsAt;
 
 	@OneToMany
-//	@Column(name = "price")
+	@JoinColumn(name = "event_id")
 	private List<Price> prices;
 
 	private String summary;

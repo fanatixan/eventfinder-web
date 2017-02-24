@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: create
+      
+  datasource:
+    url: jdbc:mysql://localhost:3306/eventfinder?characterEncoding=UTF-8
+    username: root
+    password: admin
+    driver-class-name: com.mysql.jdbc.Driver
