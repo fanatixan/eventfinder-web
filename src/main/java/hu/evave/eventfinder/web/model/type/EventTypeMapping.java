@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import hu.evave.eventfinder.web.model.Event;
 
 @Entity
-@Table(name = "eventy_type_mapping")
+@Table(name = "event_type_mapping")
 public class EventTypeMapping {
 
 	@Id

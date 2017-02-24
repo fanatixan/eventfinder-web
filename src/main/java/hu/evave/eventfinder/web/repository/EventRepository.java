@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import hu.evave.eventfinder.web.model.Event;
 import hu.evave.eventfinder.web.model.type.EventType;
 
-public interface EventRepository extends JpaRepository<Event, Long> {
+public interface EventRepository extends JpaRepository<Event, Long>, EventRepositoryCustom {
 
 	List<Event> findByTypeMappingsType(EventType type);
 
