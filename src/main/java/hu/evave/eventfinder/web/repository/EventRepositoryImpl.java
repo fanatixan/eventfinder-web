@@ -18,6 +18,7 @@ import hu.evave.eventfinder.web.model.Location;
 import hu.evave.eventfinder.web.model.Location_;
 import hu.evave.eventfinder.web.model.type.EventType;
 import hu.evave.eventfinder.web.model.type.EventTypeMapping;
+import hu.evave.eventfinder.web.model.type.EventTypeMapping_;
 
 public class EventRepositoryImpl implements EventRepositoryCustom {
 
@@ -40,14 +41,17 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
 
 		predicates.add(cb.greaterThanOrEqualTo(event.get(Event_.startsAt), new Date()));
 
-		if (location != null) {
-			predicates.add(
-					cb.equal(event.get(Event_.location).get(Location_.country), location.getCountry()));
+		String country = location.getCountry();
+		if (country != null) {
+			predicates.add(cb.equal(event.get(Event_.location).get(Location_.country), location.getCountry()));
 		}
-		
-		predicates.add(mapping.in(types));
-		
+
+		if (types != null && !types.isEmpty()) {
+			predicates.add(mapping.get(EventTypeMapping_.type).in(types));
+		}
+
 		cq.distinct(true);
+		cq.where(cb.and(predicates.toArray(new Predicate[] {})));
 
 		return em.createQuery(cq).getResultList();
 	}

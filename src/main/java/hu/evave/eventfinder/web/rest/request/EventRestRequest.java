@@ -7,24 +7,20 @@ import hu.evave.eventfinder.web.model.type.EventType;
 
 public class EventRestRequest {
 
-	private String eventTypes;
+	private String types;
 	private String keyword;
 	private String country;
 
-	public String getEventType() {
-		return eventTypes;
-	}
-
-	public void setEventType(String eventTypes) {
-		this.eventTypes = eventTypes;
+	public void setTypes(String types) {
+		this.types = types;
 	}
 
 	public List<EventType> getTypes() {
 		List<EventType> result = new ArrayList<>();
-		if (eventTypes != null && !eventTypes.isEmpty()) {
-			String[] types = eventTypes.split(",");
-			for (String type : types) {
-				result.add(EventType.valueOf(type));
+		if (types != null && !types.isEmpty()) {
+			String[] eventTypes = types.split("-");
+			for (String type : eventTypes) {
+				result.add(EventType.valueOf(type.toUpperCase()));
 			}
 		}
 
