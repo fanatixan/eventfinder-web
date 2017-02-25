@@ -25,7 +25,7 @@ public class Price {
 	@Column(precision = 7, scale = 2)
 	private BigDecimal amount;
 	
-	@Enumerated
+	@Enumerated(EnumType.STRING)
 	private PriceType type;
 
 	public Price() {

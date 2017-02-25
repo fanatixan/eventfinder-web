@@ -26,10 +26,10 @@ public class Location {
 
 	private String address;
 
-	@Column(precision = 7, scale = 2)
+	@Column(precision = 11, scale = 8)
 	private BigDecimal lat;
 
-	@Column(precision = 7, scale = 2)
+	@Column(precision = 11, scale = 8)
 	private BigDecimal lon;
 
 	public Location() {

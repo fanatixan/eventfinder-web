@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -18,6 +19,10 @@ import javax.persistence.TemporalType;
 import hu.evave.eventfinder.web.model.price.Price;
 import hu.evave.eventfinder.web.model.type.EventTypeMapping;
 
+/**
+ * @author evave
+ *
+ */
 @Entity
 @Table(name = "event")
 public class Event {
@@ -34,11 +39,11 @@ public class Event {
 	@ManyToOne
 	private Location location;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "starts_at")
 	private Date startsAt;
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ends_at")
 	private Date endsAt;
 
@@ -46,7 +51,10 @@ public class Event {
 	@JoinColumn(name = "event_id")
 	private List<Price> prices;
 
+	@Lob
 	private String summary;
+
+	@Lob
 	private String description;
 	private String webUrl;
 	private String fbUrl;
