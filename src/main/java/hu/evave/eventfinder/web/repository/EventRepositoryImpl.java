@@ -34,16 +34,22 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
 
 		List<Predicate> predicates = new ArrayList<>();
 
-		if (phrase != null && !phrase.isEmpty()) {
-			String phraseExpression = "%" + phrase + "%";
-			predicates.add(cb.like(event.get(Event_.name), phraseExpression));
-		}
+//		if (phrase != null && !phrase.isEmpty()) {
+//			String phraseExpression = "%" + phrase + "%";
+//			predicates.add(cb.like(event.get(Event_.name), phraseExpression));
+//		}
+//		if (phrase != null && !phrase.isEmpty()) {
+//			String phraseExpression = phrase;
+//			predicates.add(cb.like(event.get(Event_.name), phraseExpression));
+//		}
 
-		predicates.add(cb.greaterThanOrEqualTo(event.get(Event_.startsAt), new Date()));
+		//predicates.add(cb.greaterThanOrEqualTo(event.get(Event_.startsAt), new Date()));
 
-		String country = location.getCountry();
-		if (country != null) {
-			predicates.add(cb.equal(event.get(Event_.location).get(Location_.country), location.getCountry()));
+		if (location != null) {
+			String country = location.getCountry();
+			if (country != null) {
+				predicates.add(cb.equal(event.get(Event_.location).get(Location_.country), location.getCountry()));
+			}
 		}
 
 		if (types != null && !types.isEmpty()) {
