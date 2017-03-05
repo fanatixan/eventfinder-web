@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import hu.evave.eventfinder.web.model.Event;
 import hu.evave.eventfinder.web.model.type.EventType;
 

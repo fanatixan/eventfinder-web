@@ -31,7 +31,7 @@ public class EventRestController {
 		Location location = new Location();
 		location.setCountry(request.getCountry());
 
-		List<Event> events = eventRepository.findByTypeLocationKeyword(request.getTypes(), location,
+		List<Event> events = eventRepository.findByTypeLocationKeywordQueryDsl(request.getTypes(), location,
 				request.getKeyword());
 
 		return eventListToEventResourceList(events);
