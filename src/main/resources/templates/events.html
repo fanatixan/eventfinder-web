@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+<head>
+  <title th:fragment="title">Events</title>
+  <script src="content-script.js"></script>
+</head>
+<body>
+  <section th:fragment="content">
+    <p>Events</p>
+    <table>
+    	<tr>
+        <th>NAME</th>
+        <th>LOCATION</th>
+      </tr>
+      <tr th:each="event : ${events}">
+        <td th:text="${event.name}">Name</td>
+        <td th:text="${event.location}">Location</td>
+      </tr>
+    	
+    </table>
+  </section>
+
+</body>
+</html>
