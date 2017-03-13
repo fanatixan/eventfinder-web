@@ -16,15 +16,14 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Where;
+
 import hu.evave.eventfinder.web.model.price.Price;
 import hu.evave.eventfinder.web.model.type.EventTypeMapping;
 
-/**
- * @author evave
- *
- */
 @Entity
 @Table(name = "event")
+@Where(clause = "starts_at is not null")
 public class Event {
 
 	@Id
