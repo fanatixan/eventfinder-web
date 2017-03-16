@@ -40,7 +40,6 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Event> cq = cb.createQuery(Event.class);
 		Root<Event> event = cq.from(Event.class);
-		ListJoin<Event, EventTypeMapping> mapping = event.join(Event_.typeMappings);
 
 		List<Predicate> predicates = new ArrayList<>();
 
@@ -59,6 +58,7 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
 		}
 
 		if (types != null && !types.isEmpty()) {
+			ListJoin<Event, EventTypeMapping> mapping = event.join(Event_.typeMappings);
 			predicates.add(mapping.get(EventTypeMapping_.type).in(types));
 		}
 
