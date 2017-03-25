@@ -60,9 +60,13 @@
 					<td th:text="${event.startsAt}">Date</td>
 					<td th:text="${event.location.name}">Location</td>
 					<td>
-						<button type="button" class="btn btn-warning">
+<!-- 						<button type="button" class="btn btn-warning"> -->
+<!-- 							<span class="glyphicon glyphicon-pencil"></span> -->
+<!-- 						</button> -->
+						
+						<a th:href="@{'/edit?eventId='} + ${event.id}" role="button" class="btn btn-warning">
 							<span class="glyphicon glyphicon-pencil"></span>
-						</button>
+						</a>
 
 						<button type="button" class="btn btn-danger btn-delete"
 							th:onclick="${'showDeleteConfirm(' + event.id + ')'}">

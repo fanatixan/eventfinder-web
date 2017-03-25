@@ -17,6 +17,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Where;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import hu.evave.eventfinder.web.model.price.Price;
 import hu.evave.eventfinder.web.model.type.EventTypeMapping;
@@ -38,10 +39,12 @@ public class Event {
 	@ManyToOne
 	private Location location;
 
+	@DateTimeFormat
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "starts_at")
 	private Date startsAt;
 
+	@DateTimeFormat
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ends_at")
 	private Date endsAt;

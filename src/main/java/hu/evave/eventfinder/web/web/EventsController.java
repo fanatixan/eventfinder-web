@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import hu.evave.eventfinder.web.model.Event;
+import hu.evave.eventfinder.web.model.type.EventType;
 import hu.evave.eventfinder.web.repository.EventRepository;
 
 @Controller
@@ -20,7 +21,7 @@ public class EventsController {
 	@RequestMapping("/events")
 	public String home(Map<String, Object> model) {
 		model.put("events", eventRepository.findAll());
-		return "/events";
+		return "events";
 
 	}
 
@@ -32,6 +33,15 @@ public class EventsController {
 		event.setStartsAt(null);
 		eventRepository.save(event);
 		return "redirect:/events";
+
+	}
+	
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String edit(@RequestParam("eventId") long id, Map<String, Object> model) {	
+		
+		model.put("event", eventRepository.findOne(id));
+		model.put("types", EventType.values());
+		return "edit";
 
 	}
 
