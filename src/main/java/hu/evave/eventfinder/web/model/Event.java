@@ -3,6 +3,7 @@ package hu.evave.eventfinder.web.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,15 +37,15 @@ public class Event {
 	@OneToMany(mappedBy = "event")
 	private List<EventTypeMapping> typeMappings;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	private Location location;
 
-	@DateTimeFormat
+	@DateTimeFormat(pattern="yyyy.MM.dd HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "starts_at")
 	private Date startsAt;
 
-	@DateTimeFormat
+	@DateTimeFormat(pattern="yyyy.MM.dd HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ends_at")
 	private Date endsAt;
@@ -161,5 +162,18 @@ public class Event {
 	public Long getId() {
 		return id;
 	}
+	
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "Event [id=" + id + ", name=" + name + ", typeMappings=" + typeMappings + ", location=" + location
+				+ ", startsAt=" + startsAt + ", endsAt=" + endsAt + ", prices=" + prices + ", summary=" + summary
+				+ ", description=" + description + ", webUrl=" + webUrl + ", fbUrl=" + fbUrl + "]";
+	}
+	
+	
 
 }

@@ -11,90 +11,151 @@
 		</script>
 
 		<h2>Edit event</h2>
+		<br></br>
 
-		<form>
-			<div class="form-group row">
-				<label for="eventName" class="col-2 col-form-label">Event
-					name</label>
-				<div class="col-10">
-					<input class="form-control" type="text" th:value="${event.name}"
-						id="eventName" />
+		<form class="form-horizontal" method="post" th:object="${event}">
+			<input type="hidden" th:field="*{id}" id="id"/>
+			<div class="form-group">
+				<label for="eventName" class="col-sm-2 control-label">Event name*</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="eventName" th:field="*{name}" required="required"/>
 				</div>
 			</div>
-
 			<div class="form-group">
-				<label for="summaryTextArea">Summary</label>
-				<textarea class="form-control" id="summaryTextArea" rows="3"
-					th:field="${event.summary}"></textarea>
+				<label for="summaryTextArea" class="col-sm-2 control-label">Summary</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" id="summaryTextArea" rows="3"
+					th:field="*{summary}"></textarea>
+				</div>
 			</div>
-
 			<div class="form-group">
-				<label for="descriptionTextArea">Description</label>
-				<textarea class="form-control" id="descriptionTextArea" rows="5"
-					th:field="${event.description}"></textarea>
+				<label for="descriptionTextArea" class="col-sm-2 control-label">Description</label>
+				<div class="col-sm-10">
+					<textarea class="form-control" id="descriptionTextArea" rows="5"
+					th:field="*{description}"></textarea>
+				</div>
 			</div>
-
-			<div class="form-group row">
-				<label for="startTime" class="col-2 col-form-label">Start
-					time</label>
-				<div class="col-10">
+			<div class="form-group">
+				<label for="startTime" class="col-sm-2 control-label">Start time*</label>
+				<div class="col-sm-10">
 					<input class="form-control" type="datetime"
-						th:value="${#dates.format(event.startsAt, 'yyyy.MM.dd HH:mm')}"
-						id="startTime" /> <small id="startDateHelp"
-						class="form-text text-muted">yyyy.mm.dd hh:mm</small>
+						th:field="*{startsAt}"
+						id="startTime" required="required"/>
+					<small id="startDateHelp" class="form-text text-muted">yyyy.mm.dd hh:mm</small>
 				</div>
 			</div>
-			<div class="form-group row">
-				<label for="endTime" class="col-2 col-form-label">End time</label>
-				<div class="col-10">
+			<div class="form-group">
+				<label for="endTime" class="col-sm-2 control-label">End time</label>
+				<div class="col-sm-10">
 					<input class="form-control" type="datetime"
-						th:value="${#dates.format(event.endsAt, 'yyyy.MM.dd HH:mm')}"
-						id="endTime" /> <small id="endDateHelp"
-						class="form-text text-muted">yyyy.mm.dd hh:mm</small>
+						th:field="*{endsAt}"
+						id="endTime" />
+					<small id="startDateHelp" class="form-text text-muted">yyyy.mm.dd hh:mm</small>
 				</div>
 			</div>
-
+			<label for="location" class="control-label">Location</label>
+			<br></br>
+			<div class="form-group">				
+				<div class="form-group">
+					<label for="locationName" class="col-sm-2 control-label">Name</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="locationName" th:field="*{location.name}"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="country" class="col-sm-2 control-label">Country*</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="country" th:field="*{location.country}" required="required"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="zipCode" class="col-sm-2 control-label">ZIP code*</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="zipCode" th:field="*{location.zipCode}" required="required"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="city" class="col-sm-2 control-label">City*</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="city" th:field="*{location.city}" required="required"/>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="address" class="col-sm-2 control-label">Address*</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="address" th:field="*{location.address}" required="required"/>
+					</div>
+				</div>
+			</div>
 			<div class="form-group">
-				<label for="location" class=" col-2 col-form-label">Location</label>
-				<div class="col-10">
-					<label for="locationName" class="col-2 col-form-label">Name</label>
-					<input class="form-control" type="text"
-						th:value="${event.location.name}" id="locationName" /> <label
-						for="country" class="col-2 col-form-label">Country</label> <input
-						class="form-control" type="text"
-						th:value="${event.location.country}" id="country" /> <label
-						for="zipCode" class="col-2 col-form-label">ZIP code</label> <input
-						class="form-control" type="text"
-						th:value="${event.location.zipCode}" id="zipCode" /> <label
-						for="city" class="col-2 col-form-label">City</label> <input
-						class="form-control" type="text" th:value="${event.location.city}"
-						id="city" /> <label for="address" class="col-2 col-form-label">Address</label>
-					<input class="form-control" type="text"
-						th:value="${event.location.address}" id="address" />
+				<label for="webUrl" class="col-sm-2 control-label">Web URL</label>
+				<div class="col-sm-10">
+					<input type="url" class="form-control" id="webUrl" th:field="*{webUrl}"/>
 				</div>
 			</div>
-
-			<div class="form-group row">
-				<label for="webUrl" class="col-2 col-form-label">Web URL</label>
-				<div class="col-10">
-					<input class="form-control" type="url" th:value="${event.webUrl}"
-						id="webUrl" />
-				</div>
-			</div>
-
-			<div class="form-group row">
-				<label for="fbUrl" class="col-2 col-form-label">Facebook URL</label>
-				<div class="col-10">
-					<input class="form-control" type="url" th:value="${event.fbUrl}"
-						id="fbUrl" />
-				</div>
-			</div>
-
 			<div class="form-group">
-				<label for="types">Types</label>
-					<select multiple="multiple" class="form-control" id="types" th:field="${types}">
-					<option th:each="type : ${types}" th:value="${type.name}" th:text="${type.name()}"></option>
-				</select>
+				<label for="fbUrl" class="col-sm-2 control-label">Facebook URL</label>
+				<div class="col-sm-10">
+					<input type="url" class="form-control" id="fbUrl" th:field="*{fbUrl}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="types" class="col-sm-2 control-label">Types*</label>
+				<div class="col-sm-10">
+					<select multiple="multiple" class="form-control" id="types" th:field="${types}" required="required">
+						<option th:each="type : ${types}" th:value="${type.name}"
+						th:text="${type.name()}">
+						</option>
+					</select>
+				</div>
+			</div>
+			<label for="prices" class="control-label">Prices</label>
+			<br></br>
+			<div class="form-group">				
+				<div class="form-group">
+					<label for="normalPrice" class="col-sm-2 control-label">Normal</label>
+					<div class="col-sm-5">
+						<input type="number" step="any" class="form-control" id="normalPrice"/>
+					</div>
+					<div class="col-sm-5">
+						<select class="form-control" id="currencies" th:field="${currencies}">
+						<option th:each="currency : ${currencies}" th:value="${currency.symbol}"
+						th:text="${currency.symbol}">
+						</option>
+					</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="studentPrice" class="col-sm-2 control-label">Student</label>
+					<div class="col-sm-5">
+						<input type="number" step="any" class="form-control" id="studentPrice"/>
+					</div>
+					<div class="col-sm-5">
+						<select class="form-control" id="currencies" th:field="${currencies}">
+						<option th:each="currency : ${currencies}" th:value="${currency.symbol}"
+						th:text="${currency.symbol}">
+						</option>
+					</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="retiredPrice" class="col-sm-2 control-label">Retired</label>
+					<div class="col-sm-5">
+						<input type="number" step="any" class="form-control" id="retiredPrice"/>
+					</div>
+					<div class="col-sm-5">
+						<select class="form-control" id="currencies" th:field="${currencies}">
+						<option th:each="currency : ${currencies}" th:value="${currency.symbol}"
+						th:text="${currency.symbol}">
+						</option>
+					</select>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-primary">Save</button>
+				</div>
 			</div>
 		</form>
 

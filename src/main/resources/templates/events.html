@@ -24,14 +24,11 @@
 							<button type="button" class="close" data-dismiss="modal">
 								<span class="glyphicon glyphicon-remove"></span>
 							</button>
-							<h4 class="modal-title custom_align" id="Heading">Delete
-								this entry</h4>
+							<h4 class="modal-title custom_align" id="Heading">Delete this entry</h4>
 						</div>
 						<div class="modal-body">
-
 							<div class="alert alert-danger">Are you sure you want to
-								delete this Record?</div>
-
+								delete this event?</div>
 						</div>
 						<div class="modal-footer ">
 							<button type="submit" class="btn btn-success">Yes</button>
@@ -46,6 +43,12 @@
 		</div>
 
 		<h2>Events</h2>
+		<br></br>
+		<a th:href="@{/add}" role="button" class="btn btn-success pull-right">
+			New event
+		</a>
+		<br></br>
+		
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -64,7 +67,7 @@
 <!-- 							<span class="glyphicon glyphicon-pencil"></span> -->
 <!-- 						</button> -->
 						
-						<a th:href="@{'/edit?eventId='} + ${event.id}" role="button" class="btn btn-warning">
+						<a th:href="@{'/edit/'} + ${event.id}" role="button" class="btn btn-warning">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
 
