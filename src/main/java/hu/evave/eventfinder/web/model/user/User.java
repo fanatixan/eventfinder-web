@@ -38,10 +38,7 @@ public class User {
 	private Set<Role> roles;
 
 	@ManyToMany
-	@JoinTable(
-			name = "user_saved_event",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "event_id"))
+	@JoinTable(name = "user_saved_event", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "event_id"))
 	private List<Event> savedEvents;
 
 	public User() {
@@ -87,6 +84,10 @@ public class User {
 
 	public Long getId() {
 		return id;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
 }

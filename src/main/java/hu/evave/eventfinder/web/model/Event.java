@@ -22,6 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import hu.evave.eventfinder.web.model.price.Price;
 import hu.evave.eventfinder.web.model.type.EventTypeMapping;
+import hu.evave.eventfinder.web.model.user.User;
 
 @Entity
 @Table(name = "event")
@@ -37,15 +38,15 @@ public class Event {
 	@OneToMany(mappedBy = "event")
 	private List<EventTypeMapping> typeMappings;
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne(cascade = { CascadeType.ALL })
 	private Location location;
 
-	@DateTimeFormat(pattern="yyyy.MM.dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy.MM.dd HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "starts_at")
 	private Date startsAt;
 
-	@DateTimeFormat(pattern="yyyy.MM.dd HH:mm")
+	@DateTimeFormat(pattern = "yyyy.MM.dd HH:mm")
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "ends_at")
 	private Date endsAt;
@@ -62,11 +63,15 @@ public class Event {
 	private String webUrl;
 	private String fbUrl;
 
+	@ManyToOne
+	@JoinColumn(name = "created_by")
+	private User createdBy;
+
 	public Event() {
 	}
 
 	public Event(String name, List<EventTypeMapping> types, Location location, Date startsAt, Date endsAt,
-			List<Price> prices, String summary, String description, String webUrl, String fbUrl) {
+			List<Price> prices, String summary, String description, String webUrl, String fbUrl, User createdBy) {
 		this.name = name;
 		this.typeMappings = types;
 		this.location = location;
@@ -77,6 +82,15 @@ public class Event {
 		this.description = description;
 		this.webUrl = webUrl;
 		this.fbUrl = fbUrl;
+		this.createdBy = createdBy;
+	}
+
+	public User getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(User createdBy) {
+		this.createdBy = createdBy;
 	}
 
 	public String getName() {
@@ -162,7 +176,7 @@ public class Event {
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -173,7 +187,5 @@ public class Event {
 				+ ", startsAt=" + startsAt + ", endsAt=" + endsAt + ", prices=" + prices + ", summary=" + summary
 				+ ", description=" + description + ", webUrl=" + webUrl + ", fbUrl=" + fbUrl + "]";
 	}
-	
-	
 
 }

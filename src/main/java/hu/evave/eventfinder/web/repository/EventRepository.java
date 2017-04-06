@@ -4,8 +4,10 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import hu.evave.eventfinder.web.model.Event;
 import hu.evave.eventfinder.web.model.type.EventType;
+import hu.evave.eventfinder.web.model.user.User;
 
 public interface EventRepository extends JpaRepository<Event, Long>, EventRepositoryCustom {
 
@@ -22,5 +24,7 @@ public interface EventRepository extends JpaRepository<Event, Long>, EventReposi
 	List<Event> findByLocationCity(String city);
 
 	List<Event> findByNameContaining(String phrase);
+	
+	List<Event> findByCreatedBy(User user);
 
 }

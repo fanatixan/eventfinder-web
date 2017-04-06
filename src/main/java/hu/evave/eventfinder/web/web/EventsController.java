@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,18 +14,32 @@ import hu.evave.eventfinder.web.model.Event;
 import hu.evave.eventfinder.web.model.Location;
 import hu.evave.eventfinder.web.model.price.Currency;
 import hu.evave.eventfinder.web.model.type.EventType;
+import hu.evave.eventfinder.web.model.user.User;
 import hu.evave.eventfinder.web.repository.EventRepository;
+import hu.evave.eventfinder.web.repository.UserRepository;
 
 @Controller
 public class EventsController {
 
 	@Autowired
 	EventRepository eventRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 
 	@RequestMapping("/events")
-	public String home(Map<String, Object> model) {
+	public String listEvents(Map<String, Object> model) {
 		model.put("events", eventRepository.findAll());
 		return "events";
+
+	}
+	
+	@RequestMapping("/myevents")
+	public String listMyEvents(Map<String, Object> model) {
+		//TODO
+		User user = userRepository.findOne(1L);
+		model.put("events", eventRepository.findByCreatedBy(user));
+		return "myevents";
 
 	}
 
@@ -37,7 +50,7 @@ public class EventsController {
 		//valójában nem töröljük ki az adatbázisból
 		event.setStartsAt(null);
 		eventRepository.save(event);
-		return "redirect:/events";
+		return "redirect:/myevents";
 
 	}
 	
@@ -60,7 +73,7 @@ public class EventsController {
 		}
 		System.out.println(event);
 		eventRepository.save(event);
-		return "redirect:/events";
+		return "redirect:/myevents";
 
 	}
 	
@@ -77,7 +90,7 @@ public class EventsController {
 	@RequestMapping(value = "/edit/{eventId}", method = RequestMethod.POST)
 	public String edit(@PathVariable("eventId") long id, @ModelAttribute("event") Event event) {
 		eventRepository.save(event);
-		return "redirect:/events";
+		return "redirect:/myevents";
 
 	}
 
