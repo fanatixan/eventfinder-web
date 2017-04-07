@@ -25,17 +25,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.authoritiesByUsernameQuery("select u.name,r.role FROM user_role r, user u where u.name=? AND u.id=r.user_id");		
 	}
 
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http.authorizeRequests()
-//				.antMatchers("/login*").anonymous()
-//				.antMatchers("/favicon.ico").anonymous()
-//				.and().authorizeRequests()
-//				.antMatchers("/events").access("hasAuthority('SUPERADMIN')")
-//				.and().authorizeRequests()
-//				.anyRequest().authenticated()
-//				;
-//	}
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.formLogin().permitAll()
+			.and()
+			.authorizeRequests()							
+				.antMatchers("/events").access("hasAuthority('SUPERADMIN')")
+				.anyRequest().authenticated();
+	}
 
 	
 	
