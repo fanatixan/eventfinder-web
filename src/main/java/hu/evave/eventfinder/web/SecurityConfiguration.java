@@ -29,9 +29,24 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.formLogin().permitAll()
 			.and()
-			.authorizeRequests()							
+			.authorizeRequests()
+				.antMatchers("/", "/login").permitAll()
+				.and()
+			.authorizeRequests()
+				.antMatchers("/myevents").authenticated()
+				.anyRequest().authenticated()
+				.and()
+			.authorizeRequests()
 				.antMatchers("/events").access("hasAuthority('SUPERADMIN')")
-				.anyRequest().authenticated();
+				.anyRequest().authenticated()
+				.and()
+			.formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .defaultSuccessUrl("/myevents", true)
+                .and()
+            .logout()
+                .permitAll();
 	}
 
 	

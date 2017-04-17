@@ -1,5 +1,5 @@
 INSERT INTO user (id, email, name, password) VALUES (1, 'user.email@address.com', 'Példa User', 'jelszó');
-INSERT INTO user (id, email, name, password) VALUES (2, 'user2.email@address.com', 'Második user', 'jelszó2');
+INSERT INTO user (id, email, name, password) VALUES (2, 'user2.email@address.com', 'user2', 'p');
 INSERT INTO user (id, email, name, password) VALUES (3, 'user1.email@address.com', 'user1', 'password');
 
 INSERT INTO location (id, name, country, city, zip_code, address, lat, lon) VALUES (1, 'Csodák Palotája', 'Magyarország', 'Budapest', '1222', 'Nagytétényi út 37-43.', 47.40633500, 19.01517500);
@@ -29,3 +29,4 @@ INSERT INTO event_type_mapping (id, event_id, type) VALUES (7, 4, 'CULTURE');
 INSERT INTO event_type_mapping (id, event_id, type) VALUES (8, 4, 'THEATRE');
 
 INSERT INTO user_role(user_id, role) VALUES(3, 'ADMIN');
+INSERT INTO user_role(user_id, role) VALUES(2, 'SUPERADMIN');
