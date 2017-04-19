@@ -3,7 +3,6 @@ package hu.evave.eventfinder.web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import hu.evave.eventfinder.web.model.user.Role;
 import hu.evave.eventfinder.web.model.user.User;
 import hu.evave.eventfinder.web.repository.UserRepository;
 
@@ -17,8 +16,8 @@ public class UserService {
 	}
 
 	public void save(User user) {
+		System.out.println(user.getId());
 		user.setPassword(user.getPassword());
-		user.addRole(Role.ADMIN);
 		userRepository.save(user);
 	}
 

@@ -75,6 +75,7 @@ public class User {
 	}
 
 	public String getPassword() {
+		System.out.println(password);
 		return password;
 	}
 
@@ -88,6 +89,10 @@ public class User {
 
 	public Set<Role> getRoles() {
 		return roles;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

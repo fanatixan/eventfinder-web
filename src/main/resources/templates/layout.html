@@ -43,7 +43,7 @@
 						th:if="${#authorization.expression('hasAuthority(''SUPERADMIN'')')}"><a
 						th:href="@{/events}">Events</a></li>
 					<li class="myevents"><a th:href="@{/myevents}">My events</a></li>
-					<li class=""><a th:href="@{/}">Profile settings</a></li>
+					<li class="settings" th:if="${#authorization.expression('isAuthenticated()')}"><a th:href="@{/settings}">Profile settings</a></li>
 				</ul>
 			</nav>
 		</div>
