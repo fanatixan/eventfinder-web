@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,7 +36,7 @@ public class Event {
 
 	private String name;
 
-	@OneToMany(mappedBy = "event")
+	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
 	private List<EventTypeMapping> typeMappings;
 
 	@ManyToOne(cascade = { CascadeType.ALL })
