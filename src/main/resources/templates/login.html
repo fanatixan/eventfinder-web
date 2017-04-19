@@ -9,7 +9,7 @@
 		<script>
 			page = "home";
 		</script>
-		<div th:if="${param.error}">Invalid username and password.</div>
+		<div th:if="${param.error}">Invalid username or password.</div>
 		<div th:if="${param.logout}">You have been logged out.</div>
 		<form class="form-signin" th:action="@{/login}" method="post">
 			<h2 class="form-signin-heading">Please sign in</h2>
@@ -20,7 +20,7 @@
 				id="inputPassword" class="form-control" placeholder="Password"
 				required="required" name="password" />
 			<div class="checkbox">
-				<label> <input type="checkbox" value="remember-me" />
+				<label> <input type="checkbox" value="remember-me" name="remember-me" id="remember-me"/>
 					Remember me
 				</label>
 			</div>

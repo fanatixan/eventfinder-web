@@ -45,8 +45,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .permitAll()
                 .defaultSuccessUrl("/myevents", true)
                 .and()
+                .rememberMe()
+                .and()
             .logout()
-                .permitAll();
+                .permitAll()
+                .deleteCookies("remember-me")
+                .and()
+                ;
 	}
 
 	

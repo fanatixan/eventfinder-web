@@ -23,12 +23,25 @@
 	<div class="container">
 		<header>
 			<h1>EventFinder</h1>
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign out"
+					class="btn btn-primary pull-right"
+					th:if="${#authorization.expression('isAuthenticated()')}" />
+
+			</form>
+			<form th:action="@{/}" method="post">
+				<input type="submit" value="Sign in"
+					class="btn btn-primary pull-right"
+					th:if="${#authorization.expression('!isAuthenticated()')}" />
+
+			</form>
 		</header>
 		<div class="col-sm-2">
 			<nav class="nav-sidebar">
 				<ul class="nav tabs">
-					<li class="home"><a th:href="@{/}">Sign in</a></li>
-					<li class="events" th:if="${#authorization.expression('hasAuthority(''SUPERADMIN'')')}"><a th:href="@{/events}">Events</a></li>
+					<li class="events"
+						th:if="${#authorization.expression('hasAuthority(''SUPERADMIN'')')}"><a
+						th:href="@{/events}">Events</a></li>
 					<li class="myevents"><a th:href="@{/myevents}">My events</a></li>
 					<li class=""><a th:href="@{/}">Profile settings</a></li>
 				</ul>
