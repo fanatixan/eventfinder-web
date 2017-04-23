@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import hu.evave.eventfinder.web.model.Event;
 import hu.evave.eventfinder.web.model.Location;
 import hu.evave.eventfinder.web.model.type.EventType;
-import hu.evave.eventfinder.web.model.type.EventTypeMapping;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -25,7 +24,7 @@ public class EventRepositoryIT {
 
 	@Autowired
 	EventRepository eventRepository;
-	
+
 	private Event event = new Event();
 
 	@Before
@@ -42,15 +41,14 @@ public class EventRepositoryIT {
 	public void testFindByKeywordFullMatch() {
 		List<Event> events = eventRepository.findByTypeLocationKeyword(null, null, "Példa név");
 		Assert.assertFalse(events.isEmpty());
-		// Assert.assertEquals(events.get(0).getId(), event.getId());
 	}
-	
+
 	@Test
 	public void testFindByKeywordPartialMatch() {
 		List<Event> events = eventRepository.findByTypeLocationKeyword(null, null, "név");
 		Assert.assertFalse(events.isEmpty());
 	}
-	
+
 	@Test
 	public void testFindByLocation() {
 		Location location = new Location(null, null, "Budapest", null, null, null, null);
@@ -58,7 +56,7 @@ public class EventRepositoryIT {
 		List<Event> events = eventRepository.findByTypeLocationKeyword(null, location, null);
 		Assert.assertFalse(events.isEmpty());
 	}
-	
+
 	@Test
 	public void testFindByLocationAndKeywordMatching() {
 		Location location = new Location(null, null, "Budapest", null, null, null, null);
@@ -66,7 +64,7 @@ public class EventRepositoryIT {
 		List<Event> events = eventRepository.findByTypeLocationKeyword(null, location, "Példa");
 		Assert.assertFalse(events.isEmpty());
 	}
-	
+
 	@Test
 	public void testFindByLocationAndKeywordNotMatching() {
 		Location location = new Location(null, null, "Budapest", null, null, null, null);
@@ -74,7 +72,7 @@ public class EventRepositoryIT {
 		List<Event> events = eventRepository.findByTypeLocationKeyword(null, location, "xyz");
 		Assert.assertTrue(events.isEmpty());
 	}
-	
+
 	@Test
 	public void testFindByLocationNotMatchingAndKeyword() {
 		Location location = new Location(null, null, "Budapest", null, null, null, null);
@@ -83,36 +81,36 @@ public class EventRepositoryIT {
 		List<Event> events = eventRepository.findByTypeLocationKeyword(null, new Location(), "név");
 		Assert.assertFalse(events.isEmpty());
 	}
-	
+
 	@Test
 	public void testFindByOneTypeMatching() {
 		List<EventType> types = new ArrayList<>();
 		types.add(EventType.GASTRO);
 		types.add(EventType.KIDS);
-		
-		List<EventTypeMapping> mappings = new ArrayList<>();
-		mappings.add(new EventTypeMapping(event, EventType.GASTRO));
-		mappings.add(new EventTypeMapping(event, EventType.CINEMA));
-		event.setTypes(mappings);
+
+		List<EventType> eventTypes = new ArrayList<>();
+		eventTypes.add(EventType.GASTRO);
+		eventTypes.add(EventType.CINEMA);
+		event.setTypes(eventTypes);
 		eventRepository.save(event);
-		
-		List<Event> events = eventRepository.findByTypeLocationKeyword(types, null, null);
+
+		List<Event> events = eventRepository.findByTypeLocationKeywordQueryDsl(types, null, null);
 		Assert.assertFalse(events.isEmpty());
 	}
-	
+
 	@Test
 	public void testFindByTypeNotMatching() {
 		List<EventType> types = new ArrayList<>();
 		types.add(EventType.GASTRO);
 		types.add(EventType.KIDS);
-		
-		List<EventTypeMapping> mappings = new ArrayList<>();
-		mappings.add(new EventTypeMapping(event, EventType.THEATRE));
-		mappings.add(new EventTypeMapping(event, EventType.CINEMA));
-		event.setTypes(mappings);
+
+		List<EventType> eventTypes = new ArrayList<>();
+		eventTypes.add(EventType.THEATRE);
+		eventTypes.add(EventType.CINEMA);
+		event.setTypes(eventTypes);
 		eventRepository.save(event);
-		
-		List<Event> events = eventRepository.findByTypeLocationKeyword(types, null, null);
+
+		List<Event> events = eventRepository.findByTypeLocationKeywordQueryDsl(types, null, null);
 		Assert.assertTrue(events.isEmpty());
 	}
 

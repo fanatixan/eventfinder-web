@@ -34,8 +34,8 @@ public class EventResource {
 		id = event.getId();
 		name = event.getName();
 
-		for (EventTypeMapping typeMapping : event.getTypes()) {
-			types.add(typeMapping.getType());
+		for (EventType type : event.getTypes()) {
+			types.add(type);
 		}
 
 		location = new LocationResource(event.getLocation());

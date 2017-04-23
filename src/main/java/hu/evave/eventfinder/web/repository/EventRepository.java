@@ -11,7 +11,7 @@ import hu.evave.eventfinder.web.model.user.User;
 
 public interface EventRepository extends JpaRepository<Event, Long>, EventRepositoryCustom {
 
-	List<Event> findByTypeMappingsType(EventType type);
+	List<Event> findByTypes(List<EventType> type);
 
 	List<Event> findByStartsAtAfter(Date date);
 
@@ -24,7 +24,7 @@ public interface EventRepository extends JpaRepository<Event, Long>, EventReposi
 	List<Event> findByLocationCity(String city);
 
 	List<Event> findByNameContaining(String phrase);
-	
+
 	List<Event> findByCreatedBy(User user);
 
 }

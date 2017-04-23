@@ -19,14 +19,14 @@ INSERT INTO price (id, event_id, currency, amount, type) VALUES (4, 4, 'HUF', 80
 INSERT INTO price (id, event_id, currency, amount, type) VALUES (5, 4, 'USD', 400, NULL);
 INSERT INTO price (id, event_id, currency, amount, type) VALUES (6, 4, 'EUR', 300, NULL);
 
-INSERT INTO event_type_mapping (id, event_id, type) VALUES (1, 1, 'KIDS');
-INSERT INTO event_type_mapping (id, event_id, type) VALUES (2, 1, 'EXHIBITION');
-INSERT INTO event_type_mapping (id, event_id, type) VALUES (3, 2, 'EXHIBITION');
-INSERT INTO event_type_mapping (id, event_id, type) VALUES (4, 3, 'OUTDOOR');
-INSERT INTO event_type_mapping (id, event_id, type) VALUES (5, 3, 'OTHER');
-INSERT INTO event_type_mapping (id, event_id, type) VALUES (6, 4, 'KIDS');
-INSERT INTO event_type_mapping (id, event_id, type) VALUES (7, 4, 'CULTURE');
-INSERT INTO event_type_mapping (id, event_id, type) VALUES (8, 4, 'THEATRE');
+INSERT INTO event_type (event_id, type) VALUES (1, 'KIDS');
+INSERT INTO event_type (event_id, type) VALUES (1, 'EXHIBITION');
+INSERT INTO event_type (event_id, type) VALUES (2, 'EXHIBITION');
+INSERT INTO event_type (event_id, type) VALUES (3, 'OUTDOOR');
+INSERT INTO event_type (event_id, type) VALUES (3, 'OTHER');
+INSERT INTO event_type (event_id, type) VALUES (4, 'KIDS');
+INSERT INTO event_type (event_id, type) VALUES (4, 'CULTURE');
+INSERT INTO event_type (event_id, type) VALUES (4, 'THEATRE');
 
 INSERT INTO user_role(user_id, role) VALUES(3, 'ADMIN');
 INSERT INTO user_role(user_id, role) VALUES(2, 'SUPERADMIN');

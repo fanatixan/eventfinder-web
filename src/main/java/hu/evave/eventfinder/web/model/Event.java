@@ -1,11 +1,16 @@
 package hu.evave.eventfinder.web.model;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,12 +22,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import hu.evave.eventfinder.web.model.price.Price;
-import hu.evave.eventfinder.web.model.type.EventTypeMapping;
+import hu.evave.eventfinder.web.model.type.EventType;
 import hu.evave.eventfinder.web.model.user.User;
 
 @Entity
@@ -36,8 +40,11 @@ public class Event {
 
 	private String name;
 
-	@OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-	private List<EventTypeMapping> typeMappings;
+	@ElementCollection
+	@CollectionTable(name = "event_type", joinColumns = @JoinColumn(name = "event_id"))
+	@Enumerated(EnumType.STRING)
+	@Column(name = "type")
+	private List<EventType> types;
 
 	@ManyToOne(cascade = { CascadeType.ALL })
 	private Location location;
@@ -71,10 +78,10 @@ public class Event {
 	public Event() {
 	}
 
-	public Event(String name, List<EventTypeMapping> types, Location location, Date startsAt, Date endsAt,
-			List<Price> prices, String summary, String description, String webUrl, String fbUrl, User createdBy) {
+	public Event(String name, List<EventType> types, Location location, Date startsAt, Date endsAt, List<Price> prices,
+			String summary, String description, String webUrl, String fbUrl, User createdBy) {
 		this.name = name;
-		this.typeMappings = types;
+		this.types = types;
 		this.location = location;
 		this.startsAt = startsAt;
 		this.endsAt = endsAt;
@@ -102,12 +109,12 @@ public class Event {
 		this.name = name;
 	}
 
-	public List<EventTypeMapping> getTypes() {
-		return typeMappings;
+	public List<EventType> getTypes() {
+		return Collections.unmodifiableList(types);
 	}
 
-	public void setTypes(List<EventTypeMapping> types) {
-		this.typeMappings = types;
+	public void setTypes(List<EventType> types) {
+		this.types = types;
 	}
 
 	public Location getLocation() {
@@ -184,9 +191,9 @@ public class Event {
 
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", name=" + name + ", typeMappings=" + typeMappings + ", location=" + location
-				+ ", startsAt=" + startsAt + ", endsAt=" + endsAt + ", prices=" + prices + ", summary=" + summary
-				+ ", description=" + description + ", webUrl=" + webUrl + ", fbUrl=" + fbUrl + "]";
+		return "Event [id=" + id + ", name=" + name + ", types=" + types + ", location=" + location + ", startsAt="
+				+ startsAt + ", endsAt=" + endsAt + ", prices=" + prices + ", summary=" + summary + ", description="
+				+ description + ", webUrl=" + webUrl + ", fbUrl=" + fbUrl + "]";
 	}
 
 }

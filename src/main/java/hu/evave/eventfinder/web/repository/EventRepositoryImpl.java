@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -26,9 +25,6 @@ import hu.evave.eventfinder.web.model.Location;
 import hu.evave.eventfinder.web.model.Location_;
 import hu.evave.eventfinder.web.model.QEvent;
 import hu.evave.eventfinder.web.model.type.EventType;
-import hu.evave.eventfinder.web.model.type.EventTypeMapping;
-import hu.evave.eventfinder.web.model.type.EventTypeMapping_;
-import hu.evave.eventfinder.web.model.type.QEventTypeMapping;
 
 public class EventRepositoryImpl implements EventRepositoryCustom {
 
@@ -58,8 +54,7 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
 		}
 
 		if (types != null && !types.isEmpty()) {
-			ListJoin<Event, EventTypeMapping> mapping = event.join(Event_.typeMappings);
-			predicates.add(mapping.get(EventTypeMapping_.type).in(types));
+			predicates.add(event.get(Event_.types).in(types));
 		}
 
 		cq.distinct(true);
@@ -74,10 +69,8 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
 
 		JPAQuery<Event> query = new JPAQuery<>(em);
 		QEvent event = QEvent.event;
-		QEventTypeMapping eventTypeMapping = QEventTypeMapping.eventTypeMapping;
 
 		query.from(event).distinct();
-		query.innerJoin(event.typeMappings, eventTypeMapping);
 
 		List<BooleanExpression> conditions = new ArrayList<>();
 
@@ -96,7 +89,7 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
 		}
 
 		if (types != null && !types.isEmpty()) {
-			conditions.add(eventTypeMapping.type.in(types));
+			conditions.add(event.types.any().in(types));
 		}
 
 		for (BooleanExpression c : conditions) {
