@@ -21,7 +21,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication()
 				.dataSource(dataSource)
-				.usersByUsernameQuery("select name,password,1 from user where name = ?")
+				.usersByUsernameQuery("select `name`,`password`,1 from `user` where `name` = ?")
 				.authoritiesByUsernameQuery("select u.name,r.role FROM user_role r, user u where u.name=? AND u.id=r.user_id");		
 	}
 
@@ -47,11 +47,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	                .permitAll()
 	                .defaultSuccessUrl("/myevents", true)
 	                .and()
-	                .rememberMe()
-	                .and()
+	                //.rememberMe()
+	                //.and()
 	            .logout()
 	                .permitAll()
-	                .deleteCookies("remember-me")
+	                .invalidateHttpSession(true)
+	                //.deleteCookies("remember-me")
 	                .and()
 	                ;
 	}

@@ -81,7 +81,7 @@ public class EventsController {
 	public String edit(@PathVariable("eventId") long id, Map<String, Object> model) {	
 		
 		model.put("event", eventRepository.findOne(id));
-		model.put("types", EventType.values());
+		model.put("allTypes", EventType.values());
 		model.put("currencies", Currency.values());
 		return "edit";
 
