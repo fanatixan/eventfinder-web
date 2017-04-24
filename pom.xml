@@ -28,6 +28,7 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+					<encoding>UTF-8</encoding>
 					<useIncrementalCompilation>false</useIncrementalCompilation>
 					<compilerArgs>
 						<arg>-Xlint:deprecation</arg>
@@ -42,6 +43,7 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
 				<executions>
 					<execution>
