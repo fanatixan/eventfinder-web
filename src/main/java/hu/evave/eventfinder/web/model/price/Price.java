@@ -65,4 +65,10 @@ public class Price {
 		return id;
 	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
+
 }

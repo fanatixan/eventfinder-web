@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,6 +27,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import hu.evave.eventfinder.web.model.price.Price;
+import hu.evave.eventfinder.web.model.price.PriceType;
 import hu.evave.eventfinder.web.model.type.EventType;
 import hu.evave.eventfinder.web.model.user.User;
 
@@ -62,6 +64,15 @@ public class Event {
 	@OneToMany
 	@JoinColumn(name = "event_id")
 	private List<Price> prices;
+	
+	@OneToOne(cascade = { CascadeType.ALL })
+	private Price normalPrice;	
+	
+	@OneToOne(cascade = { CascadeType.ALL })
+	private Price studentPrice;
+	
+	@OneToOne(cascade = { CascadeType.ALL })
+	private Price retiredPrice;
 
 	@Lob
 	private String summary;
@@ -91,6 +102,10 @@ public class Event {
 		this.webUrl = webUrl;
 		this.fbUrl = fbUrl;
 		this.createdBy = createdBy;
+		
+		normalPrice.setType(PriceType.NORMAL);
+		studentPrice.setType(PriceType.STUDENT);
+		retiredPrice.setType(PriceType.RETIRED);
 	}
 
 	public User getCreatedBy() {
@@ -187,6 +202,32 @@ public class Event {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	
+
+	public Price getNormalPrice() {
+		return normalPrice;
+	}
+
+	public void setNormalPrice(Price normalPrice) {
+		this.normalPrice = normalPrice;
+	}
+
+	public Price getStudentPrice() {
+		return studentPrice;
+	}
+
+	public void setStudentPrice(Price studentPrice) {
+		this.studentPrice = studentPrice;
+	}
+
+	public Price getRetiredPrice() {
+		return retiredPrice;
+	}
+
+	public void setRetiredPrice(Price retiredPrice) {
+		this.retiredPrice = retiredPrice;
 	}
 
 	@Override
