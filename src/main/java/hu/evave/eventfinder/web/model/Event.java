@@ -103,6 +103,10 @@ public class Event {
 		this.fbUrl = fbUrl;
 		this.createdBy = createdBy;
 		
+		normalPrice = new Price();
+		studentPrice = new Price();
+		retiredPrice = new Price();
+		
 		normalPrice.setType(PriceType.NORMAL);
 		studentPrice.setType(PriceType.STUDENT);
 		retiredPrice.setType(PriceType.RETIRED);

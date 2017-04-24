@@ -42,9 +42,9 @@ public class EventResource {
 		startsAt = event.getStartsAt();
 		endsAt = event.getEndsAt();
 
-		for (Price price : event.getPrices()) {
-			prices.add(new PriceResource(price));
-		}
+		prices.add(new PriceResource(event.getNormalPrice()));
+		prices.add(new PriceResource(event.getStudentPrice()));
+		prices.add(new PriceResource(event.getRetiredPrice()));
 
 		summary = event.getSummary();
 		description = event.getDescription();
