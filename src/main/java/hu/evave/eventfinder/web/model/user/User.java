@@ -1,5 +1,6 @@
 package hu.evave.eventfinder.web.model.user;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +18,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import hu.evave.eventfinder.web.model.Event;
 
 @Entity
@@ -32,6 +36,7 @@ public class User {
 	private String password;
 
 	@ElementCollection
+	@Cascade(value = { CascadeType.ALL })
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
 	@Enumerated(EnumType.STRING)
 	@Column(name = "role")
@@ -51,6 +56,9 @@ public class User {
 	}
 
 	public void addRole(Role role) {
+		if (roles == null) {
+			roles = new HashSet<>();
+		}
 		roles.add(role);
 	}
 

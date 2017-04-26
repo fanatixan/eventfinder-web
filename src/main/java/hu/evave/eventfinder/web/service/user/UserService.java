@@ -1,6 +1,7 @@
-package hu.evave.eventfinder.web.service;
+package hu.evave.eventfinder.web.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import hu.evave.eventfinder.web.model.user.User;
@@ -12,11 +13,14 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+
 	public UserService() {
 	}
 
 	public void save(User user) {
-		user.setPassword(user.getPassword());
+		user.setPassword(encoder.encode(user.getPassword()));
 		userRepository.save(user);
 	}
 
