@@ -1,8 +1,11 @@
 package hu.evave.eventfinder.web.web;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +39,8 @@ public class EventsController {
 	
 	@RequestMapping("/myevents")
 	public String listMyEvents(Map<String, Object> model) {
-		//TODO
-		User user = userRepository.findOne(1L);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userRepository.findByName(auth.getName());
 		model.put("events", eventRepository.findByCreatedBy(user));
 		return "myevents";
 
@@ -60,14 +63,19 @@ public class EventsController {
 		Event event = new Event();
 		event.setId(-1L);
 		event.setLocation(new Location());
+		event.setTypes(new ArrayList<>());
 		model.put("event", event);
-		model.put("types", EventType.values());
+		model.put("allTypes", EventType.values());
 		model.put("currencies", Currency.values());
 		return "edit";
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String add(@ModelAttribute("event") Event event) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		event.setCreatedBy(userRepository.findByName(auth.getName()));
+		
 		if(event.getId() != null && event.getId() < 0) {
 			event.setId(null);
 		}

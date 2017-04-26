@@ -1,6 +1,5 @@
 package hu.evave.eventfinder.web.model;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -129,7 +128,7 @@ public class Event {
 	}
 
 	public List<EventType> getTypes() {
-		return Collections.unmodifiableList(types);
+		return types;
 	}
 
 	public void setTypes(List<EventType> types) {

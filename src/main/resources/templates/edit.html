@@ -15,6 +15,7 @@
 
 		<form class="form-horizontal" method="post" th:object="${event}">
 			<input type="hidden" th:field="*{id}" id="id"/>
+			<input type="hidden" th:field="*{createdBy.id}"/>
 			<div class="form-group">
 				<label for="eventName" class="col-sm-2 control-label">Event name*</label>
 				<div class="col-sm-10">

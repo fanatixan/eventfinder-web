@@ -7,6 +7,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import hu.evave.eventfinder.web.model.Event;
+import hu.evave.eventfinder.web.model.price.Price;
 import hu.evave.eventfinder.web.model.type.EventType;
 
 public class EventResource {
@@ -38,6 +39,10 @@ public class EventResource {
 
 		for (EventType type : event.getTypes()) {
 			types.add(type);
+		}
+		
+		for(Price price : event.getPrices()) {
+			prices.add(new PriceResource(price));
 		}
 
 		location = new LocationResource(event.getLocation());
