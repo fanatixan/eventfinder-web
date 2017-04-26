@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import hu.evave.eventfinder.web.model.Event;
-import hu.evave.eventfinder.web.model.price.Price;
 import hu.evave.eventfinder.web.model.type.EventType;
-import hu.evave.eventfinder.web.model.type.EventTypeMapping;
 
 public class EventResource {
 
@@ -19,8 +19,10 @@ public class EventResource {
 
 	private LocationResource location;
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date startsAt;
 
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date endsAt;
 
 	private List<PriceResource> prices = new ArrayList<>();
@@ -42,9 +44,9 @@ public class EventResource {
 		startsAt = event.getStartsAt();
 		endsAt = event.getEndsAt();
 
-		prices.add(new PriceResource(event.getNormalPrice()));
-		prices.add(new PriceResource(event.getStudentPrice()));
-		prices.add(new PriceResource(event.getRetiredPrice()));
+		// prices.add(new PriceResource(event.getNormalPrice()));
+		// prices.add(new PriceResource(event.getStudentPrice()));
+		// prices.add(new PriceResource(event.getRetiredPrice()));
 
 		summary = event.getSummary();
 		description = event.getDescription();
