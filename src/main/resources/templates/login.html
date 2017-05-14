@@ -9,12 +9,6 @@
 		<script>
 			page = "home";
 		</script>
-		<div class="error" 
-		   th:if="${param.error}"
-		   th:with="errorMsg=${session['SPRING_SECURITY_LAST_EXCEPTION'].message}">
-		  Your login attempt was not successful, try again.<br />
-		  Reason: <span th:text="${errorMsg}">Wrong input!</span> 
-		</div>
 		<div th:if="${param.error}">Invalid username or password.</div>
 		<div th:if="${param.logout}">You have been logged out.</div>
 		<form class="form-signin" th:action="@{/login}" method="post">

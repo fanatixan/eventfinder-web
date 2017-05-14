@@ -1,6 +1,7 @@
 package hu.evave.eventfinder.web.web;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import hu.evave.eventfinder.web.model.Event;
 import hu.evave.eventfinder.web.model.Location;
@@ -37,6 +41,20 @@ public class EventsController {
 
 	}
 	
+	@RequestMapping(value = "/events/json", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String listEventsJson() {
+		return new Gson().toJson(eventRepository.findAll());
+	}
+	
+	@RequestMapping(value = "/myevents/json", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public String listMyEventsJson() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userRepository.findByName(auth.getName());
+		return new Gson().toJson(eventRepository.findByCreatedBy(user));
+	}
+	
 	@RequestMapping("/myevents")
 	public String listMyEvents(Map<String, Object> model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -47,13 +65,12 @@ public class EventsController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(@RequestParam("eventId") long id) {
-		Event event = eventRepository.findOne(id);
-		
+	public @ResponseBody List<Event> delete(@RequestBody Event eventToDelete) {
+				
 		//valójában nem töröljük ki az adatbázisból
-		event.setStartsAt(null);
-		eventRepository.save(event);
-		return "redirect:/myevents";
+		eventToDelete.setStartsAt(null);
+		eventRepository.save(eventToDelete);
+		return eventRepository.findAll();
 
 	}
 	

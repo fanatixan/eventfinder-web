@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import hu.evave.eventfinder.web.model.user.Role;
 import hu.evave.eventfinder.web.model.user.User;
@@ -44,15 +46,16 @@ public class UserController {
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
         userValidator.validate(userForm, bindingResult);
-
+       
         if (bindingResult.hasErrors()) {
         	System.out.println(bindingResult.getAllErrors().toString());
             return "registration";
         }
+        
         userService.save(userForm);
 
         return "redirect:/login";
-    }
+    }  
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
@@ -71,9 +74,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/settings", method = RequestMethod.POST)
-	public String edit(@ModelAttribute("user") User user) {
+	public @ResponseBody User edit(@RequestBody User user) {
 		userRepository.save(user);
-		return "redirect:/settings";
+		return user;
 
 	}
 }

@@ -6,8 +6,43 @@
 </head>
 <body>
 	<section th:fragment="content" class="col-sm-10">
-		<script>
+
+		<script th:inline="javascript">
 			page = "settings";
+			$(document).ready(function() {
+
+				$("#formId").submit(function(e) {
+					e.preventDefault();
+					var roles = [];
+					$("#roles option:selected").each(function() {
+						roles.push($(this).val());
+					});
+					var formData = {
+						email : $("#email").val(),
+						id : $("#id").val(),
+						name : $("#name").val(),
+						password : $("#password").val(),
+						roles : roles
+					};
+					var f = $(this);
+					$.ajax({
+						method : "POST",
+						url : f.attr('action'),
+						data : JSON.stringify(formData),
+						dataType : 'json',
+						headers : {
+							'Accept' : 'application/json',
+							'Content-Type' : 'application/json'
+						},
+					}).done(function(user) {
+						f.siblings(".alert-success").removeClass('hidden');
+					}).fail(function() {
+						alert("error");
+					});
+
+				});
+
+			});
 		</script>
 
 		<h2>Edit profile settings</h2>
@@ -16,9 +51,14 @@
 		<div id="errors"
 			th:if="${(param.error != null) and (param.error[0] == 'true')}">
 			Input is incorrect</div>
-		<form class="form-horizontal" method="post" th:object="${user}">
-			<input type="hidden" th:field="*{id}" id="id" /> <input
-				type="hidden" th:field="*{name}" id="name" />
+		<div class="alert alert-success hidden" role="alert">
+			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> <span
+				class="sr-only">Success:</span> Changes saved
+		</div>
+		<form class="form-horizontal" method="post" th:object="${user}"
+			th:action="@{/settings}" id="formId">
+			<input type="hidden" th:field="*{id}" /> <input type="hidden"
+				th:field="*{name}" id="name" />
 			<div class="form-group">
 				<label for="password" class="col-sm-2 control-label">Password</label>
 				<div class="col-sm-10">
@@ -34,7 +74,7 @@
 						th:field="*{email}" required="required" />
 				</div>
 			</div>
-			<div class="form-group" style="display:none;">
+			<div class="form-group" style="display: none;">
 				<div class="col-sm-10">
 					<select multiple="multiple" class="form-control" id="roles"
 						th:field="*{roles}">
