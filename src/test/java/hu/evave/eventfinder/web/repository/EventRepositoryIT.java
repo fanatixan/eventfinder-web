@@ -22,96 +22,96 @@ import hu.evave.eventfinder.web.model.type.EventType;
 @DataJpaTest
 public class EventRepositoryIT {
 
-	@Autowired
-	EventRepository eventRepository;
+    @Autowired
+    EventRepository eventRepository;
 
-	private Event event = new Event();
+    private Event event = new Event();
 
-	@Before
-	@Transactional
-	public void setUp() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, 1);
-		event.setStartsAt(calendar.getTime());
-		event.setName("Példa név");
-		eventRepository.save(event);
-	}
+    @Before
+    @Transactional
+    public void setUp() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        event.setStartsAt(calendar.getTime());
+        event.setName("Példa név");
+        eventRepository.save(event);
+    }
 
-	@Test
-	public void testFindByKeywordFullMatch() {
-		List<Event> events = eventRepository.findByTypeLocationKeyword(null, null, "Példa név");
-		Assert.assertFalse(events.isEmpty());
-	}
+    @Test
+    public void testFindByKeywordFullMatch() {
+        List<Event> events = eventRepository.findByTypeLocationKeyword(null, null, "Példa név");
+        Assert.assertFalse(events.isEmpty());
+    }
 
-	@Test
-	public void testFindByKeywordPartialMatch() {
-		List<Event> events = eventRepository.findByTypeLocationKeyword(null, null, "név");
-		Assert.assertFalse(events.isEmpty());
-	}
+    @Test
+    public void testFindByKeywordPartialMatch() {
+        List<Event> events = eventRepository.findByTypeLocationKeyword(null, null, "név");
+        Assert.assertFalse(events.isEmpty());
+    }
 
-	@Test
-	public void testFindByLocation() {
-		Location location = new Location(null, null, "Budapest", null, null, null, null);
-		event.setLocation(location);
-		List<Event> events = eventRepository.findByTypeLocationKeyword(null, location, null);
-		Assert.assertFalse(events.isEmpty());
-	}
+    @Test
+    public void testFindByLocation() {
+        Location location = new Location(null, null, "Budapest", null, null, null, null);
+        event.setLocation(location);
+        List<Event> events = eventRepository.findByTypeLocationKeyword(null, location, null);
+        Assert.assertFalse(events.isEmpty());
+    }
 
-	@Test
-	public void testFindByLocationAndKeywordMatching() {
-		Location location = new Location(null, null, "Budapest", null, null, null, null);
-		event.setLocation(location);
-		List<Event> events = eventRepository.findByTypeLocationKeyword(null, location, "Példa");
-		Assert.assertFalse(events.isEmpty());
-	}
+    @Test
+    public void testFindByLocationAndKeywordMatching() {
+        Location location = new Location(null, null, "Budapest", null, null, null, null);
+        event.setLocation(location);
+        List<Event> events = eventRepository.findByTypeLocationKeyword(null, location, "Példa");
+        Assert.assertFalse(events.isEmpty());
+    }
 
-	@Test
-	public void testFindByLocationAndKeywordNotMatching() {
-		Location location = new Location(null, null, "Budapest", null, null, null, null);
-		event.setLocation(location);
-		List<Event> events = eventRepository.findByTypeLocationKeyword(null, location, "xyz");
-		Assert.assertTrue(events.isEmpty());
-	}
+    @Test
+    public void testFindByLocationAndKeywordNotMatching() {
+        Location location = new Location(null, null, "Budapest", null, null, null, null);
+        event.setLocation(location);
+        List<Event> events = eventRepository.findByTypeLocationKeyword(null, location, "xyz");
+        Assert.assertTrue(events.isEmpty());
+    }
 
-	@Test
-	public void testFindByLocationNotMatchingAndKeyword() {
-		Location location = new Location(null, null, "Budapest", null, null, null, null);
-		event.setLocation(location);
-		eventRepository.save(event);
-		List<Event> events = eventRepository.findByTypeLocationKeyword(null, new Location(), "név");
-		Assert.assertFalse(events.isEmpty());
-	}
+    @Test
+    public void testFindByLocationNotMatchingAndKeyword() {
+        Location location = new Location(null, null, "Budapest", null, null, null, null);
+        event.setLocation(location);
+        eventRepository.save(event);
+        List<Event> events = eventRepository.findByTypeLocationKeyword(null, new Location(), "név");
+        Assert.assertFalse(events.isEmpty());
+    }
 
-	@Test
-	public void testFindByOneTypeMatching() {
-		List<EventType> types = new ArrayList<>();
-		types.add(EventType.GASTRO);
-		types.add(EventType.KIDS);
+    @Test
+    public void testFindByOneTypeMatching() {
+        List<EventType> types = new ArrayList<>();
+        types.add(EventType.GASTRO);
+        types.add(EventType.KIDS);
 
-		List<EventType> eventTypes = new ArrayList<>();
-		eventTypes.add(EventType.GASTRO);
-		eventTypes.add(EventType.CINEMA);
-		event.setTypes(eventTypes);
-		eventRepository.save(event);
+        List<EventType> eventTypes = new ArrayList<>();
+        eventTypes.add(EventType.GASTRO);
+        eventTypes.add(EventType.CINEMA);
+        event.setTypes(eventTypes);
+        eventRepository.save(event);
 
-		List<Event> events = eventRepository.findByTypeLocationKeywordQueryDsl(types, null, null);
-		Assert.assertFalse(events.isEmpty());
-	}
+        List<Event> events = eventRepository.findByTypeLocationKeyword(types, null, null);
+        Assert.assertFalse(events.isEmpty());
+    }
 
-	@Test
-	public void testFindByTypeNotMatching() {
-		List<EventType> types = new ArrayList<>();
-		types.add(EventType.GASTRO);
-		types.add(EventType.KIDS);
+    @Test
+    public void testFindByTypeNotMatching() {
+        List<EventType> types = new ArrayList<>();
+        types.add(EventType.GASTRO);
+        types.add(EventType.KIDS);
 
-		List<EventType> eventTypes = new ArrayList<>();
-		eventTypes.add(EventType.THEATRE);
-		eventTypes.add(EventType.CINEMA);
-		event.setTypes(eventTypes);
-		eventRepository.save(event);
+        List<EventType> eventTypes = new ArrayList<>();
+        eventTypes.add(EventType.THEATRE);
+        eventTypes.add(EventType.CINEMA);
+        event.setTypes(eventTypes);
+        eventRepository.save(event);
 
-		List<Event> events = eventRepository.findByTypeLocationKeywordQueryDsl(types, null, null);
-		Assert.assertTrue(events.isEmpty());
-	}
+        List<Event> events = eventRepository.findByTypeLocationKeyword(types, null, null);
+        Assert.assertTrue(events.isEmpty());
+    }
 
 }

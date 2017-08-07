@@ -19,33 +19,29 @@ import hu.evave.eventfinder.web.rest.resource.EventResource;
 @RequestMapping("/rest")
 public class EventRestController {
 
-	@Autowired
-	EventRepository eventRepository;
+    @Autowired
+    EventRepository eventRepository;
 
-	@RequestMapping(
-			value = "/events/search",
-			method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public List<EventResource> findByTypeLocationKeyword(EventRestRequest request) {
+    @RequestMapping(value = "/events/search", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<EventResource> findByTypeLocationKeyword(EventRestRequest request) {
 
-		Location location = new Location();
-		location.setCountry(request.getCountry());
+        Location location = new Location();
+        location.setCountry(request.getCountry());
 
-		List<Event> events = eventRepository.findByTypeLocationKeywordQueryDsl(request.getTypes(), location,
-				request.getKeyword());
+        List<Event> events = eventRepository.findByTypeLocationKeyword(request.getTypes(), location, request.getKeyword());
 
-		return eventListToEventResourceList(events);
-	}
+        return eventListToEventResourceList(events);
+    }
 
-	public List<EventResource> eventListToEventResourceList(List<Event> events) {
+    public List<EventResource> eventListToEventResourceList(List<Event> events) {
 
-		List<EventResource> result = new ArrayList<>();
+        List<EventResource> result = new ArrayList<>();
 
-		for (Event event : events) {
-			result.add(new EventResource(event));
-		}
+        for (Event event : events) {
+            result.add(new EventResource(event));
+        }
 
-		return result;
-	}
+        return result;
+    }
 
 }
