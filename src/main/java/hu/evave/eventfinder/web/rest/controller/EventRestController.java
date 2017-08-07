@@ -33,7 +33,7 @@ public class EventRestController {
         return eventListToEventResourceList(events);
     }
 
-    public List<EventResource> eventListToEventResourceList(List<Event> events) {
+    private List<EventResource> eventListToEventResourceList(List<Event> events) {
 
         List<EventResource> result = new ArrayList<>();
 
