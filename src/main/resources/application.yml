@@ -1,6 +1,6 @@
 spring:
   jpa:
-    show-sql: true
+    show-sql: false
     database: MYSQL
     hibernate:
       ddl-auto: create
@@ -8,11 +8,14 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/eventfinder?characterEncoding=UTF-8
     username: eventfinder
-    password: Asdf1234
+    password: NJ7fGadMQtQvFex7
     driver-class-name: com.mysql.jdbc.Driver
     sql-script-encoding: UTF-8
 logging:
+  file: /var/log/boot/eventfinder-test.log
   level:
     org:
       springframework:
-        security: DEBUG    
+        security: INFO
+server:
+  port: 38401
